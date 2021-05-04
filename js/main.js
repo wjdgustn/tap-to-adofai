@@ -23,6 +23,8 @@ window.onload = () => {
                 newstart = false;
                 document.getElementById('reset_level').disabled = false;
                 document.getElementById('musicoffset').disabled = true;
+                document.getElementById('musicpitch').disabled = true;
+                document.getElementById('music').disabled = true;
             }
             mesure_started = true;
             player.play();
@@ -52,13 +54,18 @@ window.onload = () => {
     }
 
     document.getElementById('toggle_start').onclick = function() {
+        const offset = document.getElementById('musicoffset').value;
+        const pitch = document.getElementById('musicpitch').value;
+
         if(!file_set) return addlog('음악이 선택되어야 합니다!');
+        if(pitch ? (pitch < 25 || pitch > 400) : false) return addlog('피치는 25에서 400 사이여야 합니다!');
 
         doing = !doing;
         this.innerText = `측정 ${!doing ? '시작' : '일시정지'}`;
 
         if(newstart) {
-            player.currentTime = Number(document.getElementById('musicoffset').value / 1000) || 0;
+            player.currentTime = Number(offset / 1000) || 0;
+            player.playbackRate = Number(pitch / 100) || 1;
             addlog('아무 키나 눌러 측정을 시작하세요.');
         }
         if(!newstart && doing) {
@@ -85,6 +92,8 @@ window.onload = () => {
         this.disabled = true;
         document.getElementById('download_level').disabled = true;
         document.getElementById('musicoffset').disabled = false;
+        document.getElementById('musicpitch').disabled = false;
+        document.getElementById('music').disabled = false;
     }
 
     document.getElementById('download_level').onclick = async function() {
