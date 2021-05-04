@@ -1,5 +1,12 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
+navigator.mediaSession.setActionHandler('play', function() {});
+navigator.mediaSession.setActionHandler('pause', function() {});
+navigator.mediaSession.setActionHandler('seekbackward', function() {});
+navigator.mediaSession.setActionHandler('seekforward', function() {});
+navigator.mediaSession.setActionHandler('previoustrack', function() {});
+navigator.mediaSession.setActionHandler('nexttrack', function() {});
+
 window.onload = () => {
     let file_set = false;
     let filename;
@@ -86,6 +93,7 @@ window.onload = () => {
 
         adofai.pathData = 'R'.repeat(edittimes.length);
         adofai.settings.songFilename = filename;
+        adofai.settings.offset = Number(document.getElementById('musicoffset').value || 0);
 
         let beforems = 0;
         for(let t in edittimes) {
