@@ -91,7 +91,7 @@ window.onload = () => {
         const edittimes = times.slice(1);
         const adofai = (await axios.get('assets/template.adofai')).data;
 
-        adofai.pathData = 'R'.repeat(edittimes.length);
+        adofai.pathData = 'R'.repeat(edittimes.length + 1);
         adofai.settings.songFilename = filename;
         adofai.settings.offset = Number(document.getElementById('musicoffset').value || 0);
 
